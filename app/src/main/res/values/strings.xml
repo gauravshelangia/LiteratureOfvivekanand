@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Literature Of Vivekanand</string>
+    <string name="action_settings">Settings</string>
+    <string name="search">search</string>
+    <string name="clear_search_history">clear search history</string>
+
+    <string name="read_in_english">Read In English</string>
+    <string name="read_in_bengali">বাংলা পড়তে (Read In Bengali)</string>
+    <string name="settigs">Settings</string>
+    <string name="gallery">Gallery</string>
+    <string name="about_us">About Us</string>
+
+    <string name="app_version_info"> RMK App version 1 Copyright 2007</string>
+    <string name="powered_by">Powered by ArcticPenguin Apps</string>
+
+    <string name="settings_night_mode">Night Mode</string>
+    <string name="settings_brightness">Brightness</string>
+    <string name="settings_font_size">Font Size</string>
+
+</resources>

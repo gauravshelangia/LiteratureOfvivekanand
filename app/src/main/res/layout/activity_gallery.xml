@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.vivekanand.literature.literatureofvivekanand.Gallery">
+
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/appbar"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.83"
+        android:layout_marginTop="@dimen/gallery_image_padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/prev"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/prev" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8">
+
+        </android.support.v4.view.ViewPager>
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/next" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.17"
+        android:elevation="4dp"
+        android:padding="@dimen/gallery_view_padding"
+        android:scrollbarSize="4dp"
+        android:scrollbarStyle="outsideInset"
+        android:fadeScrollbars="true"
+        android:scrollbarThumbHorizontal="@color/gallery_scrollbar_thumb"
+        android:scrollbarTrackHorizontal="@color/gallery_scrollbar_track"
+        >
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+</LinearLayout>

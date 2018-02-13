@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorPrimaryViv">#26a69a</color>
+    <color name="colorPrimaryDarkViv">#00766c</color>
+    <color name="colorAccentViv">#80D8FF</color>
+
+    <color name="list_divider">#d9d9d9</color>
+    <color name="list_row_start_color">#ffffff</color>
+    <color name="list_row_end_color">#ffffff</color>
+    <color name="list_row_hover_start_color">#ebeef0</color>
+    <color name="list_row_hover_end_color">#ebeef0</color>
+
+    <!-- about us activity colors -->
+    <color name="about_us_text">#ffffff</color>
+    <color name="about_us">#b0bec5</color>
+
+    <!--Gallery color-->
+    <color name="gallery_scrollbar_track">#b0bec5</color>
+    <color name="gallery_scrollbar_thumb">#303F9F</color>
+</resources>
