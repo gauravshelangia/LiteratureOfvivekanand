@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
+    android:outlineProvider="bounds"
     tools:context="com.vivekanand.literature.literatureofvivekanand.MainActivity">
 
     <include
@@ -23,8 +25,8 @@
         android:onClick="goToEnglish"
         android:orientation="horizontal"
         android:padding="1dp"
-        android:translationZ="4dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:background="@drawable/custom_rect">
 
         <ImageView
             android:id="@+id/imageView"
@@ -58,8 +60,8 @@
         android:onClick="goToBengali"
         android:orientation="horizontal"
         android:padding="1dp"
-        android:translationZ="4dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:background="@drawable/custom_rect">
 
         <ImageView
             android:id="@+id/imageView1"
@@ -94,7 +96,8 @@
         android:onClick="goToGallery"
         android:orientation="horizontal"
         android:padding="1dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:background="@drawable/custom_rect">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -128,7 +131,9 @@
         android:onClick="goToSettings"
         android:orientation="horizontal"
         android:padding="1dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:background="@drawable/custom_rect"
+        >
 
         <ImageView
             android:id="@+id/imageView_setting"
@@ -162,7 +167,9 @@
         android:onClick="goToAboutUs"
         android:orientation="horizontal"
         android:padding="1dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:background="@drawable/custom_rect"
+        >
 
         <ImageView
             android:id="@+id/imageView_about"

@@ -8,4 +8,16 @@
     <dimen name="gallery_view_padding">4dp</dimen>
     <dimen name="gallery_image_padding">4dp</dimen>
     <dimen name="gallery_view_spacing">2dp</dimen>
+
+    <!--Setting dimensions-->
+    <!--Setting dimensions-->
+    <dimen name="seekbar_margin">4dp</dimen>
+    <dimen name="brightness_margin">3dp</dimen>
+    <dimen name="layout_margin">4dp</dimen>
+
+    <dimen name="brightness_text">25dp</dimen>
+
+    <dimen name="layout_settings_padding">4dp</dimen>
+
+
 </resources>

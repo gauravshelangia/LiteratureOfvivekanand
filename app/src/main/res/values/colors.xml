@@ -8,6 +8,8 @@
     <color name="colorPrimaryDarkViv">#00766c</color>
     <color name="colorAccentViv">#80D8FF</color>
 
+    <color name="black_dark">#000000</color>
+
     <color name="list_divider">#d9d9d9</color>
     <color name="list_row_start_color">#ffffff</color>
     <color name="list_row_end_color">#ffffff</color>

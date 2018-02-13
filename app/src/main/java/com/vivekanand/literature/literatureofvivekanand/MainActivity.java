@@ -1,12 +1,19 @@
 package com.vivekanand.literature.literatureofvivekanand;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToSettings(View view) {
-        System.out.println("settings");
+        startActivity(new Intent(this, Settings.class));
     }
 
     public void goToAboutUs(View view) {

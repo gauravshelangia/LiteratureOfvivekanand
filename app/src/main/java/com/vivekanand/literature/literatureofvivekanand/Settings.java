@@ -1,12 +1,29 @@
 package com.vivekanand.literature.literatureofvivekanand;
 
+import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.vivekanand.literature.literatureofvivekanand.Constants.Constants;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class Settings extends AppCompatActivity {
+
+    private SeekBar brightnessSeekBar;
+    private TextView brightnessTextView;
+    private SeekBar fontSeekBar;
+    private TextView fontTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +32,67 @@ public class Settings extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getPermission();
+        // Setting the brightness
+        brightnessSeekBar = findViewById(R.id.brightness_seek_bar);
+        brightnessTextView = findViewById(R.id.brightness_value);
+
+        int currentBrightness = getScreenBrightness();
+        brightnessSeekBar.setProgress(currentBrightness);
+        brightnessTextView.setText(String.valueOf(currentBrightness));
+
+        brightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                setScreenBrightness(i);
+                brightnessTextView.setText(String.valueOf(i));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        // setting the font-size
+        fontSeekBar = findViewById(R.id.font_seek_bar);
+        fontTextView = findViewById(R.id.font_value);
+
+        setFontSeekBar(Constants.FONT_SIZE);
+        fontSeekBar.incrementProgressBy(50);
+        fontSeekBar.setMax(100);
+
+        fontSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                setFontTextView(i);
+                fontSeekBar.setProgress(i);
+                if (i <= 25) {
+                    fontSeekBar.setProgress(0);
+                } else if (i <= 75 && i > 25) {
+                    fontSeekBar.setProgress(50);
+                } else {
+                    fontSeekBar.setProgress(100);
+                }
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
 
     @Override
@@ -43,5 +121,133 @@ public class Settings extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private int getScreenBrightness() {
+        /*
+            public static int getInt (ContentResolver cr, String name, int def)
+                Convenience function for retrieving a single system settings value as an integer.
+                Note that internally setting values are always stored as strings; this function
+                converts the string to an integer for you. The default value will be returned
+                if the setting is not defined or not an integer.
+
+            Parameters
+                cr : The ContentResolver to access.
+                name : The name of the setting to retrieve.
+                def : Value to return if the setting is not defined.
+            Returns
+                The setting's current value, or 'def' if it is not defined or not a valid integer.
+        */
+        int brightnessValue = android.provider.Settings.System.getInt(
+                this.getContentResolver(), android.provider.Settings.System.SCREEN_BRIGHTNESS, 0);
+        return brightnessValue;
+    }
+
+    private void setScreenBrightness(int brightnessValue) {
+        /*
+            public abstract ContentResolver getContentResolver ()
+                Return a ContentResolver instance for your application's package.
+        */
+        /*
+            Settings
+                The Settings provider contains global system-level device preferences.
+
+            Settings.System
+                System settings, containing miscellaneous system preferences. This table holds
+                simple name/value pairs. There are convenience functions for accessing
+                individual settings entries.
+        */
+        /*
+            public static final String SCREEN_BRIGHTNESS
+                The screen backlight brightness between 0 and 255.
+                Constant Value: "screen_brightness"
+        */
+        /*
+            public static boolean putInt (ContentResolver cr, String name, int value)
+                Convenience function for updating a single settings value as an integer. This will
+                either create a new entry in the table if the given name does not exist, or modify
+                the value of the existing row with that name. Note that internally setting values
+                are always stored as strings, so this function converts the given value to a
+                string before storing it.
+
+            Parameters
+                cr : The ContentResolver to access.
+                name : The name of the setting to modify.
+                value : The new value for the setting.
+            Returns
+                true : if the value was set, false on database errors
+        */
+
+        // Make sure brightness value between 0 to 255
+        try {
+            if (brightnessValue >= 0 && brightnessValue <= 255) {
+                android.provider.Settings.System.putInt(
+                        this.getContentResolver(),
+                        android.provider.Settings.System.SCREEN_BRIGHTNESS,
+                        brightnessValue
+                );
+            }
+        } catch (SecurityException e) {
+            // create a Popup to get the permission
+            // TODO open app setting to get access
+            Toast.makeText(this, "Do not have permission to change setting", Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_SETTINGS}, PERMISSION_GRANTED
+            );
+        }
+    }
+
+    private void setFontTextView(int value) {
+        switch (value) {
+            case 0:
+                fontTextView.setText(Constants.FONT_SIZE_SMALL);
+                Constants.FONT_SIZE = Constants.FONT_SIZE_SMALL;
+                break;
+            case 50:
+                fontTextView.setText(Constants.FONT_SIZE_MEDIUM);
+                Constants.FONT_SIZE = Constants.FONT_SIZE_MEDIUM;
+                break;
+            case 100:
+                fontTextView.setText(Constants.FONT_SIZE_LARGE);
+                Constants.FONT_SIZE = Constants.FONT_SIZE_LARGE;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setFontSeekBar(String value){
+        switch (value) {
+            case "Small":
+                fontTextView.setText(Constants.FONT_SIZE_SMALL);
+                Constants.FONT_SIZE = Constants.FONT_SIZE_SMALL;
+                break;
+            case "Medium" :
+                fontTextView.setText(Constants.FONT_SIZE_MEDIUM);
+                Constants.FONT_SIZE = Constants.FONT_SIZE_MEDIUM;
+                break;
+            case "Large":
+                fontTextView.setText(Constants.FONT_SIZE_LARGE);
+                Constants.FONT_SIZE = Constants.FONT_SIZE_LARGE;
+                break;
+            default:
+                break;
+        }
+    }
+    private void getPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!android.provider.Settings.System.canWrite(this)) {
+                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                intent.setData(Uri.parse("package:" + this.getPackageName()));
+                startActivity(intent);
+
+            }
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.WRITE_SETTINGS}, PERMISSION_GRANTED
+            );
+        }
+    }
+
+
 }
 

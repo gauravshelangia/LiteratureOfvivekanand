@@ -6,9 +6,17 @@ package com.vivekanand.literature.literatureofvivekanand.Constants;
 
 public class Constants {
 
-    public static final String READ_ENGLISH = "READ IN ENGLISH";
-    public static final String READ_BENGALI = "বাংলা পড়তে (READ IN BENGALI)";
-    public static final String GALLERY = "GALLERY";
-    public static final String SETTINGS = "SETTINGS";
-    public static final String ABOUT_US = "ABOUT US";
+    public static String READ_ENGLISH = "READ IN ENGLISH";
+    public static String READ_BENGALI = "বাংলা পড়তে (READ IN BENGALI)";
+    public static String GALLERY = "GALLERY";
+    public static String SETTINGS = "SETTINGS";
+    public static String ABOUT_US = "ABOUT US";
+
+    public static boolean NIGHT_MODE = false;
+    public static float BRIGHTNESS = -1.0f;
+    public static String BRIGHTNESS_AUTO = "Auto";
+    public static String FONT_SIZE = "Small";
+    public static String FONT_SIZE_SMALL = "Small";
+    public static String FONT_SIZE_MEDIUM = "Medium";
+    public static String FONT_SIZE_LARGE = "Large";
 }
