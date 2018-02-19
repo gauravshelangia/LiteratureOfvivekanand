@@ -1,9 +1,12 @@
 package com.vivekanand.literature.literatureofvivekanand;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +36,12 @@ public class Settings extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getPermission();
+
+
+        // Setting for nightMode
+
+
+
         // Setting the brightness
         brightnessSeekBar = findViewById(R.id.brightness_seek_bar);
         brightnessTextView = findViewById(R.id.brightness_value);
@@ -59,13 +68,15 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-
         // setting the font-size
         fontSeekBar = findViewById(R.id.font_seek_bar);
         fontTextView = findViewById(R.id.font_value);
 
-        setFontSeekBar(Constants.FONT_SIZE);
-        fontSeekBar.incrementProgressBy(50);
+        String defaultFontSize = getValueFromSharedPreference(Constants.FONT_SIZE_KEY);
+        if (defaultFontSize == null){
+            storeToSharedPreference(Constants.FONT_SIZE_KEY,Constants.FONT_SIZE_MEDIUM);
+        }
+        setFontSeekBar(getValueFromSharedPreference(Constants.FONT_SIZE_KEY));
         fontSeekBar.setMax(100);
 
         fontSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -92,7 +103,6 @@ public class Settings extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
@@ -200,39 +210,60 @@ public class Settings extends AppCompatActivity {
         switch (value) {
             case 0:
                 fontTextView.setText(Constants.FONT_SIZE_SMALL);
-                Constants.FONT_SIZE = Constants.FONT_SIZE_SMALL;
+                storeToSharedPreference(Constants.FONT_SIZE_KEY, Constants.FONT_SIZE_SMALL);
+                Constants.FONT_SIZE_VALUE = Constants.FONT_SMALL;
                 break;
             case 50:
                 fontTextView.setText(Constants.FONT_SIZE_MEDIUM);
-                Constants.FONT_SIZE = Constants.FONT_SIZE_MEDIUM;
+                storeToSharedPreference(Constants.FONT_SIZE_KEY, Constants.FONT_SIZE_MEDIUM);
+                Constants.FONT_SIZE_VALUE = Constants.FONT_MEDIUM;
                 break;
             case 100:
                 fontTextView.setText(Constants.FONT_SIZE_LARGE);
-                Constants.FONT_SIZE = Constants.FONT_SIZE_LARGE;
+                storeToSharedPreference(Constants.FONT_SIZE_KEY, Constants.FONT_SIZE_LARGE);
+                Constants.FONT_SIZE_VALUE = Constants.FONT_LARGE;
                 break;
             default:
                 break;
         }
     }
 
-    private void setFontSeekBar(String value){
+    private void setFontSeekBar(String value) {
         switch (value) {
             case "Small":
                 fontTextView.setText(Constants.FONT_SIZE_SMALL);
-                Constants.FONT_SIZE = Constants.FONT_SIZE_SMALL;
+                Constants.FONT_SIZE_VALUE = Constants.FONT_SMALL;
+                fontSeekBar.setProgress(0);
                 break;
-            case "Medium" :
+            case "Medium":
                 fontTextView.setText(Constants.FONT_SIZE_MEDIUM);
-                Constants.FONT_SIZE = Constants.FONT_SIZE_MEDIUM;
+                Constants.FONT_SIZE_VALUE = Constants.FONT_MEDIUM;
+                fontSeekBar.setProgress(50);
                 break;
             case "Large":
                 fontTextView.setText(Constants.FONT_SIZE_LARGE);
-                Constants.FONT_SIZE = Constants.FONT_SIZE_LARGE;
+                Constants.FONT_SIZE_VALUE = Constants.FONT_LARGE;
+                fontSeekBar.setProgress(100);
                 break;
             default:
                 break;
         }
     }
+
+    private String getValueFromSharedPreference(String key) {
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return  sharedPreferences.getString(key, null);
+    }
+
+    private void storeToSharedPreference(String key, String value){
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
     private void getPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!android.provider.Settings.System.canWrite(this)) {

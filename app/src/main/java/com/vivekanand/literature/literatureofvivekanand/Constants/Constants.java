@@ -19,4 +19,12 @@ public class Constants {
     public static String FONT_SIZE_SMALL = "Small";
     public static String FONT_SIZE_MEDIUM = "Medium";
     public static String FONT_SIZE_LARGE = "Large";
+
+    public static int FONT_SIZE_VALUE = 15;
+    public static int FONT_SMALL = 10;
+    public static int FONT_MEDIUM = 15;
+    public static int FONT_LARGE = 20;
+
+    public static final String NIGHT_MODE_KEY = "nightMode";
+    public static final String FONT_SIZE_KEY = "fontSize";
 }
