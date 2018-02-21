@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:background="@android:color/transparent"
+    android:background="?attr/backgroundColor"
     tools:context="com.vivekanand.literature.literatureofvivekanand.AboutUs">
 
     <include
@@ -18,11 +18,11 @@
         android:layout_height="wrap_content"
         android:text="@string/app_version_info"
         android:textStyle="bold|italic"
+        android:textColor="?attr/textColor"
         android:gravity="top|left|center_vertical"
         android:layout_gravity="left"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="2dp"
         android:layout_below="@+id/appbar"
-        android:background="@android:color/white"
         android:elevation="8dp"
         />
 
@@ -31,15 +31,14 @@
         android:layout_height="wrap_content"
         android:text="@string/powered_by"
         android:textSize="20dp"
+        android:textColor="?attr/textColor"
         android:textStyle="bold|italic"
         android:gravity="bottom|left"
         android:layout_alignParentBottom="true"
         android:layout_gravity="right"
-        android:layout_marginLeft="4dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="4dp"
         android:elevation="8dp"
-        android:background="@android:color/white"
-
         />
 
 </RelativeLayout>

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.vivekanand.literature.literatureofvivekanand.adapter.ViewPagerAdapter;
+import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedPreferenceLoader;
 
 import java.util.ArrayList;
 
@@ -25,12 +26,20 @@ public class Gallery extends AppCompatActivity {
     private View btnNext, btnPrev;
     private FragmentStatePagerAdapter adapter;
     private LinearLayout thumbnailsContainer;
+    private SharedPreferenceLoader sharedPreferenceLoader;
+
     private final static int[] resourceIDs = new int[]{R.drawable.photo1, R.drawable.photo2,
             R.drawable.photo3, R.drawable.photo4, R.drawable.photo5, R.drawable.photo6,
             R.drawable.photo7};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferenceLoader = new SharedPreferenceLoader(this);
+        if (sharedPreferenceLoader.loadNightMode()) {
+            setTheme(R.style.AppThemeNight);
+        } else {
+            setTheme(R.style.AppThemeDay);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 

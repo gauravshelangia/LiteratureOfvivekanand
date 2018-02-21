@@ -10,14 +10,20 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vivekanand.literature.literatureofvivekanand.Constants.Constants;
+import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedPreferenceLoader;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -27,9 +33,17 @@ public class Settings extends AppCompatActivity {
     private TextView brightnessTextView;
     private SeekBar fontSeekBar;
     private TextView fontTextView;
+    private SwitchCompat dayNightSwitch;
+    private SharedPreferenceLoader sharedPreferenceLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferenceLoader = new SharedPreferenceLoader(this);
+        if (sharedPreferenceLoader.loadNightMode()) {
+            setTheme(R.style.AppThemeNight);
+        } else {
+            setTheme(R.style.AppThemeDay);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -37,72 +51,38 @@ public class Settings extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getPermission();
 
-
         // Setting for nightMode
+        dayNightSwitch = findViewById(R.id.night_mode_witch);
+        if (sharedPreferenceLoader.loadNightMode()){
+            dayNightSwitch.setChecked(true);
+        } else {
+            dayNightSwitch.setChecked(false);
+        }
 
 
+        dayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    sharedPreferenceLoader.saveNighMode(b);
+                    restartApp();
+                } else {
+                    sharedPreferenceLoader.saveNighMode(b);
+                    restartApp();
+                }
+            }
+        });
 
         // Setting the brightness
-        brightnessSeekBar = findViewById(R.id.brightness_seek_bar);
-        brightnessTextView = findViewById(R.id.brightness_value);
-
-        int currentBrightness = getScreenBrightness();
-        brightnessSeekBar.setProgress(currentBrightness);
-        brightnessTextView.setText(String.valueOf(currentBrightness));
-
-        brightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setScreenBrightness(i);
-                brightnessTextView.setText(String.valueOf(i));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
+        setBrightness();
         // setting the font-size
-        fontSeekBar = findViewById(R.id.font_seek_bar);
-        fontTextView = findViewById(R.id.font_value);
+        setFont();
+    }
 
-        String defaultFontSize = getValueFromSharedPreference(Constants.FONT_SIZE_KEY);
-        if (defaultFontSize == null){
-            storeToSharedPreference(Constants.FONT_SIZE_KEY,Constants.FONT_SIZE_MEDIUM);
-        }
-        setFontSeekBar(getValueFromSharedPreference(Constants.FONT_SIZE_KEY));
-        fontSeekBar.setMax(100);
-
-        fontSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setFontTextView(i);
-                fontSeekBar.setProgress(i);
-                if (i <= 25) {
-                    fontSeekBar.setProgress(0);
-                } else if (i <= 75 && i > 25) {
-                    fontSeekBar.setProgress(50);
-                } else {
-                    fontSeekBar.setProgress(100);
-                }
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this,MainActivity.class));
     }
 
     @Override
@@ -130,6 +110,36 @@ public class Settings extends AppCompatActivity {
                 System.out.println("Do nothing");
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    private void setBrightness() {
+        brightnessSeekBar = findViewById(R.id.brightness_seek_bar);
+        brightnessTextView = findViewById(R.id.brightness_value);
+
+        int currentBrightness = getScreenBrightness();
+        brightnessSeekBar.setProgress(currentBrightness);
+        brightnessTextView.setText(String.valueOf(currentBrightness));
+
+        brightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                setScreenBrightness(i);
+                brightnessTextView.setText(String.valueOf(i));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
 
     private int getScreenBrightness() {
@@ -206,6 +216,43 @@ public class Settings extends AppCompatActivity {
         }
     }
 
+    private void setFont() {
+        fontSeekBar = findViewById(R.id.font_seek_bar);
+        fontTextView = findViewById(R.id.font_value);
+
+        String defaultFontSize = getValueFromSharedPreference(Constants.FONT_SIZE_KEY);
+        if (defaultFontSize == null) {
+            storeToSharedPreference(Constants.FONT_SIZE_KEY, Constants.FONT_SIZE_MEDIUM);
+        }
+        setFontSeekBar(getValueFromSharedPreference(Constants.FONT_SIZE_KEY));
+        fontSeekBar.setMax(100);
+
+        fontSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                setFontTextView(i);
+                fontSeekBar.setProgress(i);
+                if (i <= 25) {
+                    fontSeekBar.setProgress(0);
+                } else if (i <= 75 && i > 25) {
+                    fontSeekBar.setProgress(50);
+                } else {
+                    fontSeekBar.setProgress(100);
+                }
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
     private void setFontTextView(int value) {
         switch (value) {
             case 0:
@@ -253,10 +300,10 @@ public class Settings extends AppCompatActivity {
     private String getValueFromSharedPreference(String key) {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return  sharedPreferences.getString(key, null);
+        return sharedPreferences.getString(key, null);
     }
 
-    private void storeToSharedPreference(String key, String value){
+    private void storeToSharedPreference(String key, String value) {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -279,6 +326,10 @@ public class Settings extends AppCompatActivity {
         }
     }
 
-
+    private void restartApp() {
+        Intent intent = new Intent(getApplicationContext(), Settings.class);
+        startActivity(intent);
+        finish();
+    }
 }
 

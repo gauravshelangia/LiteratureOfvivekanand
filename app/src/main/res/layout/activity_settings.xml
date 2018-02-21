@@ -5,7 +5,7 @@
     android:id="@+id/settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="?attr/backgroundColor"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
@@ -35,7 +35,10 @@
             android:layout_weight="45.0"
             android:gravity="center_vertical"
             android:text="@string/settings_night_mode"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:textColor="?attr/textColor"
+            android:background="?attr/cardBackground"
+            />
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/night_mode_witch"
@@ -43,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
+            android:background="?attr/cardBackground"
             android:padding="20dp" />
     </RelativeLayout>
 
@@ -70,7 +73,10 @@
                 android:layout_margin="@dimen/gallery_view_padding"
                 android:gravity="center_vertical"
                 android:text="@string/settings_brightness"
-                android:textSize="@dimen/brightness_text" />
+                android:textSize="@dimen/brightness_text"
+                android:textColor="?attr/textColor"
+                android:background="?attr/cardBackground"
+                />
 
             <TextView
                 android:id="@+id/brightness_value"
@@ -81,7 +87,10 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/gallery_view_padding"
                 android:text="Auto"
-                android:textSize="@dimen/brightness_text" />
+                android:textSize="@dimen/brightness_text"
+                android:textColor="?attr/textColor"
+                android:background="?attr/cardBackground"
+                />
         </RelativeLayout>
 
         <android.support.v7.widget.AppCompatSeekBar
@@ -119,7 +128,9 @@
                 android:layout_margin="@dimen/gallery_view_padding"
                 android:gravity="center_vertical"
                 android:text="@string/settings_font_size"
-                android:textSize="@dimen/brightness_text" />
+                android:textSize="@dimen/brightness_text"
+                android:textColor="?attr/textColor"
+                android:background="?attr/cardBackground"/>
 
             <TextView
                 android:id="@+id/font_value"
@@ -130,7 +141,10 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/gallery_view_padding"
                 android:text="Small"
-                android:textSize="@dimen/brightness_text" />
+                android:textSize="@dimen/brightness_text"
+                android:textColor="?attr/textColor"
+                android:background="?attr/cardBackground"
+                />
         </RelativeLayout>
 
         <android.support.v7.widget.AppCompatSeekBar

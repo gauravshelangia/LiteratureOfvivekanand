@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="fab_margin">16dp</dimen>
     <dimen name="image_text_marging">2dp</dimen>
-    <dimen name="main_screen_layout_margin">0dp</dimen>
+    <dimen name="main_screen_layout_margin">1dp</dimen>
 
     <!--Gallery view dimensions-->
-    <dimen name="gallery_view_padding">4dp</dimen>
+    <dimen name="gallery_view_padding">2dp</dimen>
     <dimen name="gallery_image_padding">4dp</dimen>
     <dimen name="gallery_view_spacing">2dp</dimen>
 
-    <!--Setting dimensions-->
     <!--Setting dimensions-->
     <dimen name="seekbar_margin">4dp</dimen>
     <dimen name="brightness_margin">3dp</dimen>
@@ -18,6 +16,5 @@
     <dimen name="brightness_text">25dp</dimen>
 
     <dimen name="layout_settings_padding">4dp</dimen>
-
 
 </resources>

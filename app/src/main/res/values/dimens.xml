@@ -1,7 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="image_text_marging">2dp</dimen>
-    <dimen name="main_screen_layout_margin">0dp</dimen>
+    <dimen name="main_screen_layout_margin">1dp</dimen>
 
     <!--Gallery view dimensions-->
     <dimen name="gallery_view_padding">2dp</dimen>

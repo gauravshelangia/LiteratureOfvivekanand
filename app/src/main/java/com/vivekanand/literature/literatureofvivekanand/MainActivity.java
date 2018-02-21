@@ -13,18 +13,44 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedPreferenceLoader;
+
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SharedPreferenceLoader sharedPreferenceLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        sharedPreferenceLoader = new SharedPreferenceLoader(this);
+        if (sharedPreferenceLoader.loadNightMode()) {
+            setTheme(R.style.AppThemeNight);
+        } else {
+            setTheme(R.style.AppThemeDay);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
+
+//    @Override
+//    protected void onResume() {
+//        sharedPreferenceLoader = new SharedPreferenceLoader(this);
+//        if (sharedPreferenceLoader.loadNightMode()) {
+//            setTheme(R.style.AppThemeNight);
+//        } else {
+//            setTheme(R.style.AppThemeDay);
+//        }
+//        super.onResume();
+//        setContentView(R.layout.activity_main);
+////        setContentView(R.layout.activity_main);
+////        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+////        setSupportActionBar(toolbar);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

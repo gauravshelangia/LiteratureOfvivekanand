@@ -2,18 +2,63 @@
      
         
 
-    <style name="AppTheme" parent="AppTheme.Base">
+    <style name="AppThemeDay" parent="AppTheme.Base">
                 
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <item name="android:windowAllowReturnTransitionOverlap">true</item>
-        <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
-        <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
+        <!--<item name="android:windowContentTransitions">true</item>-->
+        <!--<item name="android:windowAllowEnterTransitionOverlap">true</item>-->
+        <!--<item name="android:windowAllowReturnTransitionOverlap">true</item>-->
+        <!--<item name="android:windowSharedElementEnterTransition">@android:transition/move</item>-->
+        <!--<item name="android:windowSharedElementExitTransition">@android:transition/move</item>-->
 
-        <item name="android:colorPrimary">@color/colorPrimaryViv</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDarkViv</item>
-        <item name="android:colorAccent">@color/colorAccentViv</item>
+        <!--<item name="android:colorPrimary">@color/colorPrimaryViv</item>-->
+        <!--<item name="android:colorPrimaryDark">@color/colorPrimaryDarkViv</item>-->
+        <!--<item name="android:colorAccent">@color/colorAccentViv</item>-->
             
     </style>
+
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryViv</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkViv</item>
+        <item name="colorAccent">@color/colorAccentViv</item>
+
+        <item name="backgroundColor">#fcfcfc</item>
+        <item name="cardBackground">#ffffff</item>
+        <item name="mainActivityTextColor">#808080</item>
+        <item name="settingTextColor">#808080</item>
+        <item name="aboutUsTextColor">#808088</item>
+        <item name="textColor">#808080</item>
+    </style>
+
+    <style name="AppThemeNight" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundColor">#303030</item>
+        <item name="cardBackground">#424242</item>
+        <item name="mainActivityTextColor">#ffffff</item>
+        <item name="settingTextColor">#ffffff</item>
+        <item name="aboutUsTextColor">#ffffff</item>
+        <item name="textColor">#ffffff</item>
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
      
 </resources>
