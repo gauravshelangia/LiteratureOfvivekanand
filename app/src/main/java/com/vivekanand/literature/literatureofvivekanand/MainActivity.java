@@ -80,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToEnglish(View view) {
-        System.out.println("enlish");
+        startActivity(new Intent(this, EnglishActivity.class));
     }
 
     public void goToBengali(View view) {
-        System.out.println("bengali");
+        startActivity(new Intent(this, BengaliActivity.class));
     }
 
     public void goToGallery(View view) {

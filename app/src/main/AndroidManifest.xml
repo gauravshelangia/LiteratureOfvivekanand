@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vivekanand.literature.literatureofvivekanand">
 
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:allowBackup="true"
@@ -23,9 +23,9 @@
         </activity>
         <activity android:name=".AboutUs" />
         <activity android:name=".Gallery" />
-        <activity android:name=".Settings"></activity>
-
-
+        <activity android:name=".Settings" />
+        <activity android:name=".EnglishActivity" />
+        <activity android:name=".BengaliActivity"></activity>
     </application>
 
 </manifest>
