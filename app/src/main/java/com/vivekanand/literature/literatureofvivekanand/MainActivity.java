@@ -35,22 +35,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getIntent().setAction("Already created");
     }
 
-//    @Override
-//    protected void onResume() {
-//        sharedPreferenceLoader = new SharedPreferenceLoader(this);
-//        if (sharedPreferenceLoader.loadNightMode()) {
-//            setTheme(R.style.AppThemeNight);
-//        } else {
-//            setTheme(R.style.AppThemeDay);
-//        }
-//        super.onResume();
-//        setContentView(R.layout.activity_main);
-////        setContentView(R.layout.activity_main);
-////        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-////        setSupportActionBar(toolbar);
-//    }
+    @Override
+    protected void onResume() {
+        String action =  getIntent().getAction();
+        if (action == null || !action.equals("Already created")){
+            Intent intent =  new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            getIntent().setAction(null);
+        }
+        super.onResume();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

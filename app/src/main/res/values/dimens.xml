@@ -16,5 +16,6 @@
     <dimen name="brightness_text">25dp</dimen>
 
     <dimen name="layout_settings_padding">4dp</dimen>
+    <dimen name="card_view_margin">2dp</dimen>
 
 </resources>

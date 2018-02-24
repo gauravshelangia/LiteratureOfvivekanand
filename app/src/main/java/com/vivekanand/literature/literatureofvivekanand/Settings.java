@@ -79,11 +79,11 @@ public class Settings extends AppCompatActivity {
         setFont();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this,MainActivity.class));
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        startActivity(new Intent(this,MainActivity.class));
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
