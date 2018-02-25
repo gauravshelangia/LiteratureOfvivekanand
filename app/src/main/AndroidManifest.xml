@@ -25,7 +25,8 @@
         <activity android:name=".Gallery" />
         <activity android:name=".Settings" />
         <activity android:name=".EnglishActivity" />
-        <activity android:name=".BengaliActivity"></activity>
+        <activity android:name=".BengaliActivity" />
+        <activity android:name=".BookWebView"></activity>
     </application>
 
 </manifest>
