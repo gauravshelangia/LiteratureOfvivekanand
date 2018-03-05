@@ -31,10 +31,10 @@ public class EnglishActivity extends AppCompatActivity {
             "The Gospel of the Holy Mother",
             "Biography by Swami Nikhilananda"
     };
-
+    //file:///android_asset/
     String[] bookPaths = {
-            "file:///android_asset/01_English_Partly.htm",
-            "file:///android_asset/02_English_Partly.htm"
+            "01_English_Partly.htm",
+            "02_English_Partly.htm"
     };
 
     private SharedPreferenceLoader sharedPreferenceLoader;
