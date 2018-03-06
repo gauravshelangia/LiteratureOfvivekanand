@@ -12,10 +12,19 @@
 
     <WebView
         android:id="@+id/book_web_view"
-        android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/backgroundColor"
-        >
-    </WebView>
+        android:layout_below="@+id/appbar"
+        android:background="?attr/backgroundColor"></WebView>
+
+    <RelativeLayout
+        android:id="@+id/popLayout"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="right|bottom">
+
+    </RelativeLayout>
 </RelativeLayout>

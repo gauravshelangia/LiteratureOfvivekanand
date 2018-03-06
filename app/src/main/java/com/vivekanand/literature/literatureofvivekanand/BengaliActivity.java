@@ -26,16 +26,16 @@ public class BengaliActivity extends AppCompatActivity {
     };
 
     String [] bookPaths = {
-            "01_Bengali.htm",
-            "02_Bengali.htm",
-            "03_Bengali.htm",
-            "04_Bengali.htm",
-            "05_Bengali.htm",
-            "06_Bengali.htm",
-            "07_Bengali.htm",
-            "08_Bengali.htm",
-            "09_Bengali.htm",
-            "10_Bengali.htm"
+            "file:///android_asset/01_Bengali.htm",
+            "file:///android_asset/02_Bengali.htm",
+            "file:///android_asset/03_Bengali.htm",
+            "file:///android_asset/04_Bengali.htm",
+            "file:///android_asset/05_Bengali.htm",
+            "file:///android_asset/06_Bengali.htm",
+            "file:///android_asset/07_Bengali.htm",
+            "file:///android_asset/08_Bengali.htm",
+            "file:///android_asset/09_Bengali.htm",
+            "file:///android_asset/10_Bengali.htm"
     };
 
     private SharedPreferenceLoader sharedPreferenceLoader;
