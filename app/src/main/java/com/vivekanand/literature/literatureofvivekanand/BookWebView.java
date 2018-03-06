@@ -33,7 +33,8 @@ public class BookWebView extends AppCompatActivity {
     String bookUrl;
     CountDownTimer toastCountDown;
     private BookWebView thisClass = this;
-
+    PopupWindow popupWindow;
+    RelativeLayout popUpRelative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +153,7 @@ public class BookWebView extends AppCompatActivity {
 
             View bookMarkButtons = ((LayoutInflater) getApplicationContext()
                     .getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.bookmark_popup, null);
-            final PopupWindow popupWindow = new PopupWindow(bookMarkButtons, -2, -2);
+            popupWindow = new PopupWindow(bookMarkButtons, -2, -2);
             ((Button) bookMarkButtons.findViewById(R.id.bookmark_no_thanks)).
                     setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -170,13 +171,13 @@ public class BookWebView extends AppCompatActivity {
                             if (sharedPreferenceLoader.loadBookMark(bookUrl) != 0) {
                                 webView.scrollTo(0, sharedPreferenceLoader.loadBookMark(bookUrl));
                             }
+                            popupWindow.dismiss();
                             toastCountDown.onFinish();
                             toastCountDown.cancel();
-                            popupWindow.dismiss();
                         }
                     });
 
-            final RelativeLayout popUpRelative = (RelativeLayout) findViewById(R.id.popLayout);
+            popUpRelative = (RelativeLayout) findViewById(R.id.popLayout);
             popUpRelative.setGravity(Gravity.RIGHT|Gravity.BOTTOM);
             popUpRelative.post(new Runnable() {
                 @Override
