@@ -49,6 +49,7 @@ public class BookListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, final View convertView, ViewGroup viewGroup) {
+
         View view = layoutInflater.inflate(R.layout.book_list_item, null);
         TextView textView = view.findViewById(R.id.book_list_item_id);
         textView.setText(bookNames[i]);
