@@ -96,14 +96,10 @@ public class EnglishActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
-
-
-//                    adapter.filter("");
-//                    listView.clearTextFilter();
+                    searchAdapter.resetList();
+                    hintListView.setVisibility(View.GONE);
                 } else {
-                    // TODO: 3/7/2018 search from file and update list view
 
-//                    adapter.filter(newText);
                 }
                 return true;
             }
@@ -122,10 +118,13 @@ public class EnglishActivity extends AppCompatActivity {
 
     private void prepareSearch(){
 
+
         indexerCore = new IndexerCore(this);
         indexerCore.createIndex(bookPaths);
         searchManager = new SearchManager();
         searchManager.setIndexes(indexerCore.getWordToFileMap());
+
+
     }
 
     private void searchResultAndShowHints(String query) {

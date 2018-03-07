@@ -53,6 +53,7 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> {
 
                 Intent intent = new Intent(context, BookWebView.class);
                 intent.putExtra("bookPath", searchItemModels.get(position).getBook_path());
+                intent.putExtra("searchTerm",searchItemModels.get(position).getTitle());
                 context.startActivity(intent);
 
             }
@@ -65,5 +66,10 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> {
     @Override
     public int getCount() {
         return searchItemModels.size();
+    }
+
+    public void resetList() {
+        searchItemModels.clear();
+        notifyDataSetChanged();
     }
 }

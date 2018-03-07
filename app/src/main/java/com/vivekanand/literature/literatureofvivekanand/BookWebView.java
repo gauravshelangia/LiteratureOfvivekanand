@@ -5,7 +5,10 @@ import android.os.CountDownTimer;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +25,7 @@ import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedP
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 
 public class BookWebView extends AppCompatActivity {
 
@@ -35,6 +39,7 @@ public class BookWebView extends AppCompatActivity {
     private BookWebView thisClass = this;
     PopupWindow popupWindow;
     RelativeLayout popUpRelative;
+    private String searchTerm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class BookWebView extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         bookUrl = bundle.getString("bookPath");
+        searchTerm = bundle.getString("searchTerm", "");
         webView = findViewById(R.id.book_web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -86,11 +92,34 @@ public class BookWebView extends AppCompatActivity {
             }
         }
 
+        focusSearchTexts();
+
+    }
+
+    private void focusSearchTexts() {
+
+        if (searchTerm.length() > 0) {
+
+            webView.findAll(searchTerm);
+
+            try {
+                // Can't use getMethod() as it's a private method
+                for (Method m : WebView.class.getDeclaredMethods()) {
+                    if (m.getName().equals("setFindIsUp")) {
+                        m.setAccessible(true);
+                        m.invoke(webView, true);
+                        break;
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
     }
 
     @Override
     protected void onPostResume() {
-        if (sharedPreferenceLoader.loadBookMark(bookUrl) != 0){
+        if (sharedPreferenceLoader.loadBookMark(bookUrl) != 0) {
             callPopup();
         }
         super.onPostResume();
@@ -107,7 +136,27 @@ public class BookWebView extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
+        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchResult(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return true;
+    }
+
+    private void searchResult(String query) {
+        searchTerm = query;
+        focusSearchTexts();
     }
 
     @Override
@@ -178,11 +227,11 @@ public class BookWebView extends AppCompatActivity {
                     });
 
             popUpRelative = (RelativeLayout) findViewById(R.id.popLayout);
-            popUpRelative.setGravity(Gravity.RIGHT|Gravity.BOTTOM);
+            popUpRelative.setGravity(Gravity.RIGHT | Gravity.BOTTOM);
             popUpRelative.post(new Runnable() {
                 @Override
                 public void run() {
-                    popupWindow.showAtLocation(popUpRelative, 8388693, 0,0);
+                    popupWindow.showAtLocation(popUpRelative, 8388693, 0, 0);
                 }
             });
         }
