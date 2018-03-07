@@ -22,6 +22,7 @@ import com.vivekanand.literature.literatureofvivekanand.indexer.FileReader;
 import com.vivekanand.literature.literatureofvivekanand.indexer.IndexerCore;
 import com.vivekanand.literature.literatureofvivekanand.indexer.SearchItemModel;
 import com.vivekanand.literature.literatureofvivekanand.indexer.SearchManager;
+import com.vivekanand.literature.literatureofvivekanand.models.IndexCacheModel;
 import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedPreferenceLoader;
 
 import java.util.ArrayList;
@@ -51,7 +52,6 @@ public class EnglishActivity extends AppCompatActivity {
     private SharedPreferenceLoader sharedPreferenceLoader;
     private SearchAdapter searchAdapter;
     private ListView hintListView;
-    private IndexerCore indexerCore;
     private SearchManager searchManager;
 
     @Override
@@ -118,12 +118,9 @@ public class EnglishActivity extends AppCompatActivity {
 
     private void prepareSearch(){
 
-
-        indexerCore = new IndexerCore(this);
-        indexerCore.createIndex(bookPaths);
         searchManager = new SearchManager();
-        searchManager.setIndexes(indexerCore.getWordToFileMap());
-
+        IndexCacheModel indexCacheModel = sharedPreferenceLoader.getCachedEnglishIndex();
+        searchManager.setIndexes(indexCacheModel.getIndexMap());
 
     }
 

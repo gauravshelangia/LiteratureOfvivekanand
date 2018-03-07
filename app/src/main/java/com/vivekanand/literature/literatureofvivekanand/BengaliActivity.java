@@ -16,13 +16,14 @@ import com.vivekanand.literature.literatureofvivekanand.adapter.SearchAdapter;
 import com.vivekanand.literature.literatureofvivekanand.indexer.IndexerCore;
 import com.vivekanand.literature.literatureofvivekanand.indexer.SearchItemModel;
 import com.vivekanand.literature.literatureofvivekanand.indexer.SearchManager;
+import com.vivekanand.literature.literatureofvivekanand.models.IndexCacheModel;
 import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedPreferenceLoader;
 
 import java.util.ArrayList;
 
 public class BengaliActivity extends AppCompatActivity {
 
-    String [] bookNames = {
+    String[] bookNames = {
             "01. স্বামী বিবেকানন্দের বাণী ও রচনা - প্রথম খণ্ড",
             "02 .স্বামী বিবেকানন্দের বাণী ও রচনা - দ্বিতীয় খণ্ড",
             "03. স্বামী বিবেকানন্দের বাণী ও রচনা - তৃতীয় খণ্ড",
@@ -35,7 +36,7 @@ public class BengaliActivity extends AppCompatActivity {
             "10. স্বামী বিবেকানন্দের বাণী ও রচনা - দশম খণ্ড"
     };
 
-    String [] bookPaths = {
+    String[] bookPaths = {
             "file:///android_asset/01_Bengali.htm",
             "file:///android_asset/02_Bengali.htm",
             "file:///android_asset/03_Bengali.htm",
@@ -48,7 +49,7 @@ public class BengaliActivity extends AppCompatActivity {
             "file:///android_asset/10_Bengali.htm"
     };
 
-    String [] sources = {
+    String[] sources = {
             "01_Bengali.htm",
             "02_Bengali.htm",
             "03_Bengali.htm",
@@ -64,7 +65,6 @@ public class BengaliActivity extends AppCompatActivity {
     private SharedPreferenceLoader sharedPreferenceLoader;
     private SearchAdapter searchAdapter;
     private ListView hintListView;
-    private IndexerCore indexerCore;
     private SearchManager searchManager;
 
     @Override
@@ -93,19 +93,11 @@ public class BengaliActivity extends AppCompatActivity {
 
     }
 
-    private void prepareSearch(){
+    private void prepareSearch() {
 
-        new Thread(){
-            @Override
-            public void run() {
-
-                indexerCore = new IndexerCore(BengaliActivity.this);
-                indexerCore.createIndex(sources);
-                searchManager = new SearchManager();
-                searchManager.setIndexes(indexerCore.getWordToFileMap());
-
-            }
-        }.start();
+        searchManager = new SearchManager();
+        IndexCacheModel indexCacheModel = sharedPreferenceLoader.getCachedBengaliIndex();
+        searchManager.setIndexes(indexCacheModel.getIndexMap());
 
 
     }
@@ -113,8 +105,8 @@ public class BengaliActivity extends AppCompatActivity {
     private void searchResultAndShowHints(String query) {
 
         ArrayList<SearchItemModel> searchItemModels = searchManager.getSearchResults(query);
-        if(searchItemModels.size()==0){
-            Toast.makeText(this,"No Search Found!",Toast.LENGTH_LONG).show();
+        if (searchItemModels.size() == 0) {
+            Toast.makeText(this, "No Search Found!", Toast.LENGTH_LONG).show();
             return;
         }
         hintListView.setVisibility(View.VISIBLE);
@@ -123,12 +115,11 @@ public class BengaliActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
+        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
