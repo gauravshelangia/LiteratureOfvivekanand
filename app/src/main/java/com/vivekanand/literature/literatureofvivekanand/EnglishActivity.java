@@ -120,7 +120,9 @@ public class EnglishActivity extends AppCompatActivity {
 
         searchManager = new SearchManager();
         IndexCacheModel indexCacheModel = sharedPreferenceLoader.getCachedEnglishIndex();
-        searchManager.setIndexes(indexCacheModel.getIndexMap());
+        if(indexCacheModel != null){
+            searchManager.setIndexes(indexCacheModel.getIndexMap());
+        }
 
     }
 

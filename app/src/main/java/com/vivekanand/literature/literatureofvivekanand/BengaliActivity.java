@@ -97,7 +97,9 @@ public class BengaliActivity extends AppCompatActivity {
 
         searchManager = new SearchManager();
         IndexCacheModel indexCacheModel = sharedPreferenceLoader.getCachedBengaliIndex();
-        searchManager.setIndexes(indexCacheModel.getIndexMap());
+        if(indexCacheModel != null ) {
+            searchManager.setIndexes(indexCacheModel.getIndexMap());
+        }
 
 
     }

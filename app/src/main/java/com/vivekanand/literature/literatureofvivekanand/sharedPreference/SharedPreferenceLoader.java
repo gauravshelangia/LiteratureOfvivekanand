@@ -4,8 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.vivekanand.literature.literatureofvivekanand.Constants.Constants;
 import com.vivekanand.literature.literatureofvivekanand.models.IndexCacheModel;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by gaurav on 22/02/18.
@@ -48,7 +53,11 @@ public class SharedPreferenceLoader {
     }
 
     public IndexCacheModel getCachedEnglishIndex(){
-        return new Gson().fromJson(sharedPreferences.getString("engJson",""),IndexCacheModel.class);
+        String data = sharedPreferences.getString("engJson","");
+        Type type = new TypeToken<HashMap<String, HashSet<String>>>() {}.getType();
+        HashMap<String, HashSet<String>> setHashMap = new Gson().fromJson(data, type);
+        return new IndexCacheModel(setHashMap);
+//        return new Gson().fromJson(sharedPreferences.getString("engJson",""),IndexCacheModel.class);
     }
 
     public boolean isEnglishIndexCached(){
@@ -68,7 +77,10 @@ public class SharedPreferenceLoader {
     }
 
     public IndexCacheModel getCachedBengaliIndex(){
-        return new Gson().fromJson(sharedPreferences.getString("benJson",""),IndexCacheModel.class);
+        String data = sharedPreferences.getString("benJson","");
+        Type type = new TypeToken<HashMap<String, HashSet<String>>>() {}.getType();
+        HashMap<String, HashSet<String>> setHashMap = new Gson().fromJson(data, type);
+        return new IndexCacheModel(setHashMap);
     }
 
     public boolean isBengaliIndexCached(){
