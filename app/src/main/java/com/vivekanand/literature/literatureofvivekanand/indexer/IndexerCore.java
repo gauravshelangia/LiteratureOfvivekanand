@@ -49,11 +49,11 @@ public class IndexerCore {
 
     public void startIndexing() {
 
-        createIndexes(bengali_sources);
-        cacheIndexMap(false);
-
         createIndexes(english_sources);
         cacheIndexMap(true);
+
+        createIndexes(bengali_sources);
+        cacheIndexMap(false);
 
     }
 
