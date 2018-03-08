@@ -60,8 +60,7 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
     private ProgressBar searchingProgressBar;
     private RelativeLayout searchHintsContainer;
     private SearchManager searchManager;
-
-
+    private SearchView searchView;
 
 
     @Override
@@ -91,10 +90,10 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
-        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView = (SearchView) myActionMenuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query){
                 searchResultAndShowHints(query);
                 return false;
             }
@@ -142,8 +141,8 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
     @Override
     public void onSearched(ArrayList<SearchItemModel> results) {
 
-        showSuggestionList();
         searchAdapter.setSearchItemModels(results);
+        showSuggestionList();
 
     }
 
@@ -169,8 +168,9 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
     }
 
     private void showSuggestionList(){
+
         searchHintsContainer.setVisibility(View.VISIBLE);
-        hintListView.setVisibility(View.VISIBLE);
+        Log.d("TAG","showing list");
         searchingProgressBar.setVisibility(View.GONE);
         searchingTv.setVisibility(View.GONE);
 
