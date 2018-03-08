@@ -2,6 +2,7 @@ package com.vivekanand.literature.literatureofvivekanand;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -14,6 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vivekanand.literature.literatureofvivekanand.adapter.BookListAdapter;
@@ -27,7 +31,7 @@ import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedP
 
 import java.util.ArrayList;
 
-public class EnglishActivity extends AppCompatActivity {
+public class EnglishActivity extends AppCompatActivity implements SearchManager.SearchListener {
 
     String[] bookNames = {
             "Complete Works - Volume 1",
@@ -52,7 +56,13 @@ public class EnglishActivity extends AppCompatActivity {
     private SharedPreferenceLoader sharedPreferenceLoader;
     private SearchAdapter searchAdapter;
     private ListView hintListView;
+    private TextView searchingTv;
+    private ProgressBar searchingProgressBar;
+    private RelativeLayout searchHintsContainer;
     private SearchManager searchManager;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +77,9 @@ public class EnglishActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         BookListAdapter bookListAdapter = new BookListAdapter(bookNames, this, bookPaths);
         ListView bookList = (ListView) findViewById(R.id.bookList);
         bookList.setAdapter(bookListAdapter);
-        hintListView = findViewById(R.id.searchHints);
-        searchAdapter = new SearchAdapter(this);
-        hintListView.setAdapter(searchAdapter);
 
         prepareSearch();
 
@@ -97,7 +103,7 @@ public class EnglishActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
                     searchAdapter.resetList();
-                    hintListView.setVisibility(View.GONE);
+                    hideSuggestionsView();
                 } else {
 
                 }
@@ -108,7 +114,7 @@ public class EnglishActivity extends AppCompatActivity {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                hintListView.setVisibility(View.GONE);
+                hideSuggestionsView();
                 return true;
             }
         });
@@ -116,27 +122,65 @@ public class EnglishActivity extends AppCompatActivity {
         return true;
     }
 
+    // Modified search view
     private void prepareSearch(){
 
-        searchManager = new SearchManager();
-        IndexCacheModel indexCacheModel = sharedPreferenceLoader.getCachedEnglishIndex();
-        if(indexCacheModel != null){
-            searchManager.setIndexes(indexCacheModel.getIndexMap());
-        }
+        hintListView = findViewById(R.id.searchHints);
+        searchingProgressBar = findViewById(R.id.searchingProgressBar);
+        searchingTv = findViewById(R.id.searchingTv);
+        searchHintsContainer = findViewById(R.id.search_hint_view);
+        searchManager = new SearchManager(this);
+        searchManager.setSearchListener(this);
 
+
+        searchAdapter = new SearchAdapter(this);
+        hintListView.setAdapter(searchAdapter);
+
+
+    }
+
+    @Override
+    public void onSearched(ArrayList<SearchItemModel> results) {
+
+        showSuggestionList();
+        searchAdapter.setSearchItemModels(results);
+
+    }
+
+    @Override
+    public void onNoResultFound() {
+        hideSuggestionsView();
+        Toast.makeText(this,"No Search Found!",Toast.LENGTH_LONG).show();
     }
 
     private void searchResultAndShowHints(String query) {
 
-        ArrayList<SearchItemModel> searchItemModels = searchManager.getSearchResults(query);
-        if(searchItemModels.size()==0){
-            Toast.makeText(this,"No Search Found!",Toast.LENGTH_LONG).show();
-            return;
-        }
-        hintListView.setVisibility(View.VISIBLE);
-        searchAdapter.setSearchItemModels(searchItemModels);
+        showSearching();
+        searchManager.invokeEnglishSearchResults(query);
 
     }
+
+    private void showSearching() {
+
+        searchHintsContainer.setVisibility(View.VISIBLE);
+        searchingTv.setVisibility(View.VISIBLE);
+        searchingProgressBar.setVisibility(View.VISIBLE);
+
+    }
+
+    private void showSuggestionList(){
+        searchHintsContainer.setVisibility(View.VISIBLE);
+        hintListView.setVisibility(View.VISIBLE);
+        searchingProgressBar.setVisibility(View.GONE);
+        searchingTv.setVisibility(View.GONE);
+
+    }
+
+    private void hideSuggestionsView(){
+        searchHintsContainer.setVisibility(View.GONE);
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -157,4 +201,7 @@ public class EnglishActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
