@@ -94,7 +94,7 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query){
-                searchResultAndShowHints(query);
+                searchResultAndShowHints();
                 return false;
             }
 
@@ -152,8 +152,8 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
         Toast.makeText(this,"No Search Found!",Toast.LENGTH_LONG).show();
     }
 
-    private void searchResultAndShowHints(String query) {
-
+    private void searchResultAndShowHints() {
+       String query = searchView.getQuery().toString();
         showSearching();
         searchManager.invokeEnglishSearchResults(query);
 

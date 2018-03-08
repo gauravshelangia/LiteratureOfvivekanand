@@ -72,6 +72,7 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
     private ProgressBar searchingProgressBar;
     private TextView searchingTv;
     private RelativeLayout searchHintsContainer;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,10 +128,11 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
         Toast.makeText(this,"No Search Found!",Toast.LENGTH_LONG).show();
     }
 
-    private void searchResultAndShowHints(String query) {
+    private void searchResultAndShowHints() {
 
+        String query = searchView.getQuery().toString();
         showSearching();
-        searchManager.invokeEnglishSearchResults(query);
+        searchManager.invokeBengaliSearchResults(query);
 
     }
 
@@ -160,11 +162,11 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView = (SearchView) myActionMenuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchResultAndShowHints(query);
+                searchResultAndShowHints();
                 return false;
             }
 
