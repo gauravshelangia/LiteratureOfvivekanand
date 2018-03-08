@@ -3,7 +3,14 @@ package com.vivekanand.literature.literatureofvivekanand.sharedPreference;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.vivekanand.literature.literatureofvivekanand.Constants.Constants;
+import com.vivekanand.literature.literatureofvivekanand.models.IndexCacheModel;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by gaurav on 22/02/18.
@@ -37,4 +44,56 @@ public class SharedPreferenceLoader {
         editor.putInt(bookName, scrollY);
         editor.commit();
     }
+
+
+    public void cacheIndexedEnglish(String json){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("engJson",json);
+        editor.apply();
+    }
+
+    public IndexCacheModel getCachedEnglishIndex(){
+        String data = sharedPreferences.getString("engJson","");
+        Type type = new TypeToken<HashMap<String, HashSet<String>>>() {}.getType();
+        HashMap<String, HashSet<String>> setHashMap = new Gson().fromJson(data, type);
+        return new IndexCacheModel(setHashMap);
+//        return new Gson().fromJson(sharedPreferences.getString("engJson",""),IndexCacheModel.class);
+    }
+
+    public boolean isEnglishIndexCached(){
+        return sharedPreferences.getBoolean("c_eng",false);
+    }
+
+    public void setEnglishIndexedCached(boolean englishIndexedCached){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("c_eng",englishIndexedCached);
+        editor.apply();
+    }
+
+    public void cacheIndexedBengali(String json){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("benJson",json);
+        editor.apply();
+    }
+
+    public IndexCacheModel getCachedBengaliIndex(){
+        String data = sharedPreferences.getString("benJson","");
+        Type type = new TypeToken<HashMap<String, HashSet<String>>>() {}.getType();
+        HashMap<String, HashSet<String>> setHashMap = new Gson().fromJson(data, type);
+        return new IndexCacheModel(setHashMap);
+    }
+
+    public boolean isBengaliIndexCached(){
+        return sharedPreferences.getBoolean("c_ben",false);
+    }
+
+    public void setBengaliIndexedCached(boolean bengaliIndexedCached){
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("c_ben",bengaliIndexedCached);
+        editor.apply();
+
+    }
+
+
 }

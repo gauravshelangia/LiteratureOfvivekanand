@@ -8,11 +8,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.vivekanand.literature.literatureofvivekanand.indexer.IndexerCore;
 import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedPreferenceLoader;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -37,13 +40,32 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getIntent().setAction("Already created");
+//
+//        SharedPreferenceLoader sharedPreferenceLoader = new SharedPreferenceLoader(this);
+//        if (!sharedPreferenceLoader.isBengaliIndexCached()) {
+//            prepareIndex();
+//        }
+
     }
+
+//    private void prepareIndex() {
+//
+//        final IndexerCore core = new IndexerCore(this);
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                core.startIndexing();
+//            }
+//        }.start();
+//
+//
+//    }
 
     @Override
     protected void onResume() {
-        String action =  getIntent().getAction();
-        if (action == null || !action.equals("Already created")){
-            Intent intent =  new Intent(this, MainActivity.class);
+        String action = getIntent().getAction();
+        if (action == null || !action.equals("Already created")) {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -56,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -76,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
             default:
                 System.out.println("Do nothing");
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -98,4 +123,6 @@ public class MainActivity extends AppCompatActivity {
     public void goToAboutUs(View view) {
         startActivity(new Intent(this, AboutUs.class));
     }
+
+
 }

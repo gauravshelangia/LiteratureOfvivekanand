@@ -20,4 +20,13 @@
         >
     </include>
 
+    <include
+        android:id="@+id/search_hint_view"
+        layout="@layout/seach_hint_view"
+        android:layout_below="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
 </RelativeLayout>
