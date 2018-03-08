@@ -20,12 +20,13 @@
         >
     </include>
 
-    <ListView
-        android:visibility="gone"
+    <include
+        android:id="@+id/search_hint_view"
+        layout="@layout/seach_hint_view"
         android:layout_below="@+id/appbar"
-        android:background="#009988"
-        android:id="@+id/searchHints"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        />
+
 
 </RelativeLayout>

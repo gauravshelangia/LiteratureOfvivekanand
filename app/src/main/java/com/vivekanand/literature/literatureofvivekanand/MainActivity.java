@@ -40,26 +40,26 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getIntent().setAction("Already created");
-
-        SharedPreferenceLoader sharedPreferenceLoader = new SharedPreferenceLoader(this);
-        if (!sharedPreferenceLoader.isBengaliIndexCached()) {
-            prepareIndex();
-        }
-
-    }
-
-    private void prepareIndex() {
-
-        final IndexerCore core = new IndexerCore(this);
-        new Thread() {
-            @Override
-            public void run() {
-                core.startIndexing();
-            }
-        }.start();
-
+//
+//        SharedPreferenceLoader sharedPreferenceLoader = new SharedPreferenceLoader(this);
+//        if (!sharedPreferenceLoader.isBengaliIndexCached()) {
+//            prepareIndex();
+//        }
 
     }
+
+//    private void prepareIndex() {
+//
+//        final IndexerCore core = new IndexerCore(this);
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                core.startIndexing();
+//            }
+//        }.start();
+//
+//
+//    }
 
     @Override
     protected void onResume() {

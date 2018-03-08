@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vivekanand.literature.literatureofvivekanand.adapter.BookListAdapter;
@@ -21,7 +24,7 @@ import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedP
 
 import java.util.ArrayList;
 
-public class BengaliActivity extends AppCompatActivity {
+public class BengaliActivity extends AppCompatActivity implements SearchManager.SearchListener {
 
     String[] bookNames = {
             "01. স্বামী বিবেকানন্দের বাণী ও রচনা - প্রথম খণ্ড",
@@ -66,6 +69,9 @@ public class BengaliActivity extends AppCompatActivity {
     private SearchAdapter searchAdapter;
     private ListView hintListView;
     private SearchManager searchManager;
+    private ProgressBar searchingProgressBar;
+    private TextView searchingTv;
+    private RelativeLayout searchHintsContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,33 +91,67 @@ public class BengaliActivity extends AppCompatActivity {
         ListView bookList = (ListView) findViewById(R.id.bookList);
         bookList.setAdapter(bookListAdapter);
 
-        hintListView = findViewById(R.id.searchHints);
-        searchAdapter = new SearchAdapter(this);
-        hintListView.setAdapter(searchAdapter);
 
         prepareSearch();
 
     }
 
-    private void prepareSearch() {
+    // Modified search view
+    private void prepareSearch(){
 
-        searchManager = new SearchManager();
-        IndexCacheModel indexCacheModel = sharedPreferenceLoader.getCachedBengaliIndex();
-        searchManager.setIndexes(indexCacheModel.getIndexMap());
+        hintListView = findViewById(R.id.searchHints);
+        searchingProgressBar = findViewById(R.id.searchingProgressBar);
+        searchingTv = findViewById(R.id.searchingTv);
+        searchHintsContainer = findViewById(R.id.search_hint_view);
+        searchManager = new SearchManager(this);
+        searchManager.setSearchListener(this);
+
+
+        searchAdapter = new SearchAdapter(this);
+        hintListView.setAdapter(searchAdapter);
 
 
     }
 
+    @Override
+    public void onSearched(ArrayList<SearchItemModel> results) {
+
+        showSuggestionList();
+        searchAdapter.setSearchItemModels(results);
+
+    }
+
+    @Override
+    public void onNoResultFound() {
+        hideSuggestionsView();
+        Toast.makeText(this,"No Search Found!",Toast.LENGTH_LONG).show();
+    }
+
     private void searchResultAndShowHints(String query) {
 
-        ArrayList<SearchItemModel> searchItemModels = searchManager.getSearchResults(query);
-        if (searchItemModels.size() == 0) {
-            Toast.makeText(this, "No Search Found!", Toast.LENGTH_LONG).show();
-            return;
-        }
-        hintListView.setVisibility(View.VISIBLE);
-        searchAdapter.setSearchItemModels(searchItemModels);
+        showSearching();
+        searchManager.invokeEnglishSearchResults(query);
 
+    }
+
+    private void showSearching() {
+
+        searchHintsContainer.setVisibility(View.VISIBLE);
+        searchingTv.setVisibility(View.VISIBLE);
+        searchingProgressBar.setVisibility(View.VISIBLE);
+
+    }
+
+    private void showSuggestionList(){
+        searchHintsContainer.setVisibility(View.VISIBLE);
+        hintListView.setVisibility(View.VISIBLE);
+        searchingProgressBar.setVisibility(View.GONE);
+        searchingTv.setVisibility(View.GONE);
+
+    }
+
+    private void hideSuggestionsView(){
+        searchHintsContainer.setVisibility(View.GONE);
     }
 
 
@@ -132,7 +172,7 @@ public class BengaliActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
                     searchAdapter.resetList();
-                    hintListView.setVisibility(View.GONE);
+                    hideSuggestionsView();
                 } else {
 
                 }
@@ -143,7 +183,7 @@ public class BengaliActivity extends AppCompatActivity {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                hintListView.setVisibility(View.GONE);
+               hideSuggestionsView();
                 return true;
             }
         });
