@@ -64,6 +64,7 @@ public class BookWebView extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setDefaultFontSize(sharedPreferenceLoader.getFontSize());
 
         if (bookUrl.contains("Bengali")) {
             webView.loadUrl(bookUrl);
