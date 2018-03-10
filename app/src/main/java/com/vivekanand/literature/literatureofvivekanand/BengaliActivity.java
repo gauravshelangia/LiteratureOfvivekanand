@@ -201,9 +201,9 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.search:
-                // TODO open search view to search
-                break;
+//            case R.id.search:
+//                // TODO open search view to search
+//                break;
             case R.id.clear_search_history:
                 // TODO clear previous search history
                 break;

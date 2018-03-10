@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.vivekanand.literature.literatureofvivekanand.adapter.BookListAdapter;
 import com.vivekanand.literature.literatureofvivekanand.adapter.SearchAdapter;
+import com.vivekanand.literature.literatureofvivekanand.adapter.SearchHistoryAdapter;
 import com.vivekanand.literature.literatureofvivekanand.indexer.FileReader;
 import com.vivekanand.literature.literatureofvivekanand.indexer.IndexerCore;
 import com.vivekanand.literature.literatureofvivekanand.indexer.SearchItemModel;
@@ -61,6 +63,8 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
     private RelativeLayout searchHintsContainer;
     private SearchManager searchManager;
     private SearchView searchView;
+    private RelativeLayout searchHistory;
+    private final ListView listView = null;
 
 
     @Override
@@ -89,7 +93,7 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
+        MenuItem myActionMenuItem = menu.findItem( R.id.action_search).setVisible(true);
         searchView = (SearchView) myActionMenuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -134,6 +138,17 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
 
         searchAdapter = new SearchAdapter(this);
         hintListView.setAdapter(searchAdapter);
+        searchHistory = (RelativeLayout)findViewById(R.id.search_history_include);
+        searchHistory.setVisibility(View.VISIBLE);
+        final ListView listView = findViewById(R.id.search_history_list);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                searchView.setQuery((String)listView.getItemAtPosition(i), false);
+            }
+        });
+
 
 
     }
@@ -190,9 +205,10 @@ public class EnglishActivity extends AppCompatActivity implements SearchManager.
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.search:
-                // TODO open search view to search
-                break;
+//            case R.id.search:
+//                //Toast.makeText(this, "adfhhfxd", Toast.LENGTH_SHORT).show();
+//                // TODO open search view to search
+//                break;
             case R.id.clear_search_history:
                 // TODO clear previous search history
                 break;
