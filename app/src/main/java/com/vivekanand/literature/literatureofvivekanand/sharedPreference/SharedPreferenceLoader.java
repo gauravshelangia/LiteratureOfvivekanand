@@ -105,13 +105,13 @@ public class SharedPreferenceLoader {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (value) {
             case "Small":
-                editor.putString(Constants.FONT_SIZE_VALUE_KEY, "12");
-                break;
-            case "Medium":
                 editor.putString(Constants.FONT_SIZE_VALUE_KEY, "15");
                 break;
-            case "Large":
+            case "Medium":
                 editor.putString(Constants.FONT_SIZE_VALUE_KEY, "18");
+                break;
+            case "Large":
+                editor.putString(Constants.FONT_SIZE_VALUE_KEY, "21");
                 break;
             default:
                 // do nothing

@@ -93,6 +93,17 @@ public class BookWebView extends AppCompatActivity {
             }
         }
 
+        webView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (popupWindow != null && popupWindow.isShowing()){
+                    popupWindow.dismiss();
+                    toastCountDown.onFinish();
+                    toastCountDown.cancel();
+                }
+                return false;
+            }
+        });
         focusSearchTexts();
 
     }
