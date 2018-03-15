@@ -21,6 +21,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         this.images = imagesList;
     }
 
+    public void setImages(List<Integer> images){
+        this.images = images;
+    }
+
     @Override
     public Fragment getItem(int position) {
         return PageFragment.getInstance(images.get(position));
