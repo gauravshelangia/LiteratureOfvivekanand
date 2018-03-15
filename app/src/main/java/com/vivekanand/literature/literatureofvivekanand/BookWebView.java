@@ -64,6 +64,7 @@ public class BookWebView extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setDefaultFontSize(sharedPreferenceLoader.getFontSize());
 
         if (bookUrl.contains("Bengali")) {
             webView.loadUrl(bookUrl);
@@ -92,6 +93,17 @@ public class BookWebView extends AppCompatActivity {
             }
         }
 
+        webView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (popupWindow != null && popupWindow.isShowing()){
+                    popupWindow.dismiss();
+                    toastCountDown.onFinish();
+                    toastCountDown.cancel();
+                }
+                return false;
+            }
+        });
         focusSearchTexts();
 
     }
@@ -167,9 +179,9 @@ public class BookWebView extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.search:
-                // TODO open search view to search
-                break;
+//            case R.id.search:
+//                // TODO open search view to search
+//                break;
             case R.id.clear_search_history:
                 // TODO clear previous search history
                 break;

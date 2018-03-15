@@ -35,6 +35,7 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> {
 
     public void setSearchItemModels(ArrayList<SearchItemModel> searchItemModels) {
         this.searchItemModels = searchItemModels;
+        notifyDataSetChanged();
     }
 
     @NonNull
