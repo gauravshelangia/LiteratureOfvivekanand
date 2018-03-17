@@ -3,5 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/keyboardpopup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Install Bangla Keyboard for Bengali search"
+            android:textSize="20dp" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <Button
+            android:id="@+id/cancel_bangla_keyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cancel" />
+
+        <Button
+            android:id="@+id/install_bangla_keyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="install" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

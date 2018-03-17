@@ -30,6 +30,7 @@ public class Constants {
 
     public static final String NIGHT_MODE_KEY = "nightMode";
     public static final String FONT_SIZE_KEY = "fontSize";
+    public static final String BANGLA_KEYBOARD_INSTALLED = "banglaKeyboard";
 
     public final static int[] imageIDs = new int[]{
             R.drawable.photo1, R.drawable.photo2,

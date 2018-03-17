@@ -1,5 +1,8 @@
 package com.vivekanand.literature.literatureofvivekanand;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -21,6 +24,7 @@ import com.vivekanand.literature.literatureofvivekanand.indexer.SearchItemModel;
 import com.vivekanand.literature.literatureofvivekanand.indexer.SearchManager;
 import com.vivekanand.literature.literatureofvivekanand.models.IndexCacheModel;
 import com.vivekanand.literature.literatureofvivekanand.sharedPreference.SharedPreferenceLoader;
+import com.vivekanand.literature.literatureofvivekanand.utils.InstallKeyboardUtil;
 
 import java.util.ArrayList;
 
@@ -73,6 +77,8 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
     private TextView searchingTv;
     private RelativeLayout searchHintsContainer;
     private SearchView searchView;
+    private InstallKeyboardUtil installKeyboardUtil = new InstallKeyboardUtil();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +97,31 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
         BookListAdapter bookListAdapter = new BookListAdapter(bookNames, this, bookPaths);
         ListView bookList = (ListView) findViewById(R.id.bookList);
         bookList.setAdapter(bookListAdapter);
-
-
         prepareSearch();
 
+        if (!sharedPreferenceLoader.isBanglaKeyboardInstalled()) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                    .setTitle("Install Bangla Keyboard")
+                    .setMessage("Install Bangla keyboard to enable Bengali search")
+                    .setPositiveButton("Install", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            System.out.println("install clicked");
+                            installKeyboardUtil.installKeyboard(getApplicationContext());
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            System.out.println("cancel clicked");
+                        }
+                    }).show();
+        }
+        Toast.makeText(this, "change keyboard to ridmik keyboard to enable bengali search", Toast.LENGTH_SHORT).show();
     }
 
     // Modified search view
-    private void prepareSearch(){
+    private void prepareSearch() {
 
         hintListView = findViewById(R.id.searchHints);
         searchingProgressBar = findViewById(R.id.searchingProgressBar);
@@ -125,7 +148,7 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
     @Override
     public void onNoResultFound() {
         hideSuggestionsView();
-        Toast.makeText(this,"No Search Found!",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "No Search Found!", Toast.LENGTH_LONG).show();
     }
 
     private void searchResultAndShowHints() {
@@ -144,7 +167,7 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
 
     }
 
-    private void showSuggestionList(){
+    private void showSuggestionList() {
         searchHintsContainer.setVisibility(View.VISIBLE);
         hintListView.setVisibility(View.VISIBLE);
         searchingProgressBar.setVisibility(View.GONE);
@@ -152,7 +175,7 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
 
     }
 
-    private void hideSuggestionsView(){
+    private void hideSuggestionsView() {
         searchHintsContainer.setVisibility(View.GONE);
     }
 
@@ -185,7 +208,7 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-               hideSuggestionsView();
+                hideSuggestionsView();
                 return true;
             }
         });

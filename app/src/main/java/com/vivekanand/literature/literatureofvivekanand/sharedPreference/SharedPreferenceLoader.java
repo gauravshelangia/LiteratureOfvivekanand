@@ -119,5 +119,13 @@ public class SharedPreferenceLoader {
         editor.commit();
     }
 
+    public void makeBanglaKeyboardInstalled(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Constants.BANGLA_KEYBOARD_INSTALLED, true);
+        editor.commit();
+    }
 
+    public boolean isBanglaKeyboardInstalled(){
+        return sharedPreferences.getBoolean(Constants.BANGLA_KEYBOARD_INSTALLED, false);
+    }
 }

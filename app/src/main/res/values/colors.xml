@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorPrimaryViv">#26a69a</color>
-    <color name="colorPrimaryDarkViv">#00766c</color>
-    <color name="colorAccentViv">#80D8FF</color>
+    <color name="colorPrimaryViv">#ef6c00</color>
+    <color name="colorPrimaryDarkViv">#b53d00</color>
+    <color name="colorAccentViv">#ff9d3f</color>
 
     <color name="black_dark">#000000</color>
 
