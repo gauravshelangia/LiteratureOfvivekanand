@@ -99,7 +99,7 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
         bookList.setAdapter(bookListAdapter);
         prepareSearch();
 
-        if (!installKeyboardUtil.isRidmikKeyboardInstalled(this) && !sharedPreferenceLoader.isBanglaKeyboardInstalled() ) {
+        if (!installKeyboardUtil.isRidmikKeyboardInstalled(this) || !sharedPreferenceLoader.isBanglaKeyboardInstalled() ) {
             AlertDialog alertDialog = new AlertDialog.Builder(this)
                     .setTitle("Install Bangla Keyboard")
                     .setMessage("Install Bangla keyboard to enable Bengali search")
