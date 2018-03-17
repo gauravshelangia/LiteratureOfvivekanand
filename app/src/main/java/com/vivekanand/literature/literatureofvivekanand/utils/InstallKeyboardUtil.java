@@ -20,27 +20,40 @@ public class InstallKeyboardUtil {
     private SharedPreferenceLoader sharedPreferenceLoader;
 
     public void installKeyboard(Context context) {
-//        Context context = getApplicationContext();
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         List<InputMethodInfo> inputMethodInfos = inputMethodManager.getInputMethodList();
-        System.out.println(inputMethodInfos.toArray().toString());
+//        System.out.println(inputMethodInfos.toArray().toString());
         boolean hasBanglaKeyboard = false;
-        for (InputMethodInfo inputMethodInfo : inputMethodInfos){
-            if(inputMethodInfo.getComponent().getPackageName().equals("ridmik.keyboard")){
+        for (InputMethodInfo inputMethodInfo : inputMethodInfos) {
+            if (inputMethodInfo.getComponent().getPackageName().equals("ridmik.keyboard")) {
                 hasBanglaKeyboard = true;
             }
         }
 
-        if (!hasBanglaKeyboard){
+        if (!hasBanglaKeyboard) {
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://play.google.com/store/apps/details?id=" + "ridmik.keyboard"));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             context.startActivity(intent);
+        } else {
+            Toast.makeText(context, "You already have ridmik keyboard installed", Toast.LENGTH_LONG).show();
         }
 
         sharedPreferenceLoader = new SharedPreferenceLoader(context);
         sharedPreferenceLoader.makeBanglaKeyboardInstalled();
 
+    }
+
+    public boolean isRidmikKeyboardInstalled(Context context){
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        List<InputMethodInfo> inputMethodInfos = inputMethodManager.getInputMethodList();
+        boolean hasBanglaKeyboard = false;
+        for (InputMethodInfo inputMethodInfo : inputMethodInfos) {
+            if (inputMethodInfo.getComponent().getPackageName().equals("ridmik.keyboard")) {
+                hasBanglaKeyboard = true;
+            }
+        }
+        return hasBanglaKeyboard;
     }
 }
