@@ -35,7 +35,21 @@ public class BookWebView extends AppCompatActivity {
     String toReplace = "<script src=\"V1%20C1%20Response%20to%20welcome_files/jquery.js\">";
     WebView webView;
     String bookUrl;
-    CountDownTimer toastCountDown;
+    Toast continueToast;
+    final CountDownTimer toastCountDown = new CountDownTimer(25000, 5000) {
+        public void onTick(long millisUntilFinished) {
+            if (BookWebView.this.thisClass.hasWindowFocus()) {
+                continueToast.show();
+                return;
+            }
+            continueToast.cancel();
+        }
+
+        @Override
+        public void onFinish() {
+            continueToast.cancel();
+        }
+    };
     private BookWebView thisClass = this;
     PopupWindow popupWindow;
     RelativeLayout popUpRelative;
@@ -104,6 +118,16 @@ public class BookWebView extends AppCompatActivity {
                 return false;
             }
         });
+        webView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (popupWindow != null ){
+                    popupWindow.dismiss();
+                    toastCountDown.onFinish();
+                    toastCountDown.cancel();
+                }
+            }
+        });
         focusSearchTexts();
 
     }
@@ -140,7 +164,9 @@ public class BookWebView extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         sharedPreferenceLoader.saveBookMark(bookUrl, webView.getScrollY());
-//        toastCountDown.cancel();
+        if(toastCountDown != null){
+            toastCountDown.cancel();
+        }
         super.onBackPressed();
     }
 
@@ -193,24 +219,12 @@ public class BookWebView extends AppCompatActivity {
 
     private void callPopup() {
         int bookMarkPosition = sharedPreferenceLoader.loadBookMark(bookUrl);
-        final Toast continueToast = Toast.makeText(this, "Click Continue to resume where you left....", Toast.LENGTH_SHORT);
 
         if (bookMarkPosition != 0) {
-            this.toastCountDown = new CountDownTimer(25000, 5000) {
-                public void onTick(long millisUntilFinished) {
-                    if (BookWebView.this.thisClass.hasWindowFocus()) {
-                        continueToast.show();
-                        return;
-                    }
-                    continueToast.cancel();
-                }
-
-                @Override
-                public void onFinish() {
-                    continueToast.cancel();
-                }
-            };
-            toastCountDown.start();
+            continueToast = Toast.makeText(this, "Click Continue to resume where you left....", Toast.LENGTH_SHORT);
+            synchronized (toastCountDown){
+                toastCountDown.start();
+            }
 
             View bookMarkButtons = ((LayoutInflater) getApplicationContext()
                     .getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.bookmark_popup, null);
