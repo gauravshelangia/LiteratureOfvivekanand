@@ -19,7 +19,7 @@
     <dimen name="card_view_margin">2dp</dimen>
 
     <dimen name="mainLayoutHeight">70dp</dimen>
-    <dimen name="mainTextSize">25dp</dimen>
+    <dimen name="mainTextSize">20dp</dimen>
     <dimen name="mainImageWidth">60dp</dimen>
     <dimen name="mainLayoutMargin">8dp</dimen>
 

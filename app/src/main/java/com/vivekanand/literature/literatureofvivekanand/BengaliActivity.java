@@ -40,7 +40,33 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
             "07. স্বামী বিবেকানন্দের বাণী ও রচনা - সপ্তম খণ্ড",
             "08. স্বামী বিবেকানন্দের বাণী ও রচনা - অষ্টম খণ্ড",
             "09. স্বামী বিবেকানন্দের বাণী ও রচনা - নবম খণ্ড",
-            "10. স্বামী বিবেকানন্দের বাণী ও রচনা - দশম খণ্ড"
+            "10. স্বামী বিবেকানন্দের বাণী ও রচনা - দশম খণ্ড",
+            "11. চিকাগো বক্তৃতা",
+            "12. দেববাণী",
+            "13. ধর্ম কি",
+            "14. পত্রাবলী",
+            "15. বর্তমান ভারত",
+            "16. বীরবাণী কবিতা",
+            "17. বেদান্তের আলোকে",
+            "18. ভাববার কথা",
+            "19. ভারতে বিবেকানন্দ",
+            "20. স্বামী বিবেকানন্দের বাণী ও রচনা - প্রথম খণ্ড",
+            "21. স্বামী বিবেকানন্দের বাণী ও রচনা - তৃতীয় খণ্ড",
+            "22. স্বামী বিবেকানন্দের বাণী ও রচনা - চতুর্থ খণ্ড",
+            "23. স্বামী বিবেকানন্দের বাণী ও রচনা - পঞ্চম খণ্ড",
+            "24. স্বামী বিবেকানন্দের বাণী ও রচনা - ষষ্ঠ খণ্ড",
+            "25. কর্মযোগ",
+            "26. স্বামী বিবেকানন্দের বাণী ও রচনা - অষ্টম খণ্ড",
+            "27. স্বামী বিবেকানন্দের বাণী ও রচনা - নবম খণ্ড",
+            "28. স্বামী বিবেকানন্দের বাণী ও রচনা - দশম খণ্ড",
+            "29. কবিতা",
+            "30. স্বামী-শিষ্য-সংবাদ",
+            "31. বামী বিবেকানন্দের বাণী ও রচনা - সপ্তম খণ্ড",
+            "32. স্বামী বিবেকানন্দের বাণী ও রচনা - দ্বিতীয় খণ্ড",
+            "33. ভক্তিযোগ",
+            "34. রাজযোগ",
+            "35. সরল রাজযোগ"
+
     };
 
     String[] bookPaths = {
@@ -53,7 +79,32 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
             "file:///android_asset/07_Bengali.htm",
             "file:///android_asset/08_Bengali.htm",
             "file:///android_asset/09_Bengali.htm",
-            "file:///android_asset/10_Bengali.htm"
+            "file:///android_asset/10_Bengali.htm",
+            "file:///android_asset/11_Bengali.htm",
+            "file:///android_asset/12_Bengali.htm",
+            "file:///android_asset/13_Bengali.htm",
+            "file:///android_asset/14_Bengali.htm",
+            "file:///android_asset/15_Bengali.htm",
+            "file:///android_asset/16_Bengali.htm",
+            "file:///android_asset/17_Bengali.htm",
+            "file:///android_asset/18_Bengali.htm",
+            "file:///android_asset/19_Bengali.htm",
+            "file:///android_asset/20_Bengali.htm",
+            "file:///android_asset/21_Bengali.htm",
+            "file:///android_asset/22_Bengali.htm",
+            "file:///android_asset/23_Bengali.htm",
+            "file:///android_asset/24_Bengali.htm",
+            "file:///android_asset/25_Bengali.htm",
+            "file:///android_asset/26_Bengali.htm",
+            "file:///android_asset/27_Bengali.htm",
+            "file:///android_asset/28_Bengali.htm",
+            "file:///android_asset/29_Bengali.htm",
+            "file:///android_asset/30_Bengali.htm",
+            "file:///android_asset/31_Bengali.htm",
+            "file:///android_asset/32_Bengali.htm",
+            "file:///android_asset/33_Bengali.htm",
+            "file:///android_asset/34_Bengali.htm",
+            "file:///android_asset/35_Bengali.htm"
     };
 
     String[] sources = {
@@ -99,25 +150,6 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
         bookList.setAdapter(bookListAdapter);
         prepareSearch();
 
-        if (!installKeyboardUtil.isRidmikKeyboardInstalled(this) || !sharedPreferenceLoader.isBanglaKeyboardInstalled() ) {
-            AlertDialog alertDialog = new AlertDialog.Builder(this)
-                    .setTitle("Install Bangla Keyboard")
-                    .setMessage("Install Bangla keyboard to enable Bengali search")
-                    .setPositiveButton("Install", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            System.out.println("install clicked");
-                            installKeyboardUtil.installKeyboard(getApplicationContext());
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            System.out.println("cancel clicked");
-                        }
-                    }).show();
-        }
-        Toast.makeText(this, "change keyboard to ridmik keyboard to enable bengali search", Toast.LENGTH_SHORT).show();
     }
 
     // Modified search view

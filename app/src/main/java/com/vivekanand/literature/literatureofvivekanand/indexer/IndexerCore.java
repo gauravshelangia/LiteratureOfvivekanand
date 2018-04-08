@@ -30,7 +30,32 @@ public class IndexerCore {
             "07_Bengali.htm",
             "08_Bengali.htm",
             "09_Bengali.htm",
-            "10_Bengali.htm"
+            "10_Bengali.htm",
+            "11_Bengali.htm",
+            "12_Bengali.htm",
+            "13_Bengali.htm",
+            "14_Bengali.htm",
+            "15_Bengali.htm",
+            "16_Bengali.htm",
+            "17_Bengali.htm",
+            "18_Bengali.htm",
+            "19_Bengali.htm",
+            "20_Bengali.htm",
+            "21_Bengali.htm",
+            "22_Bengali.htm",
+            "23_Bengali.htm",
+            "24_Bengali.htm",
+            "25_Bengali.htm",
+            "26_Bengali.htm",
+            "27_Bengali.htm",
+            "28_Bengali.htm",
+            "29_Bengali.htm",
+            "30_Bengali.htm",
+            "31_Bengali.htm",
+            "32_Bengali.htm",
+            "33_Bengali.htm",
+            "34_Bengali.htm",
+            "35_Bengali.htm"
     };
 
     String[] english_sources = {
