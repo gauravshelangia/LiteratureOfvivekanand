@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/help"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:outlineProvider="bounds"
+    android:padding="1dp"
+    tools:context="com.vivekanand.literature.literatureofvivekanand.Settings">
+
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/appbar"></include>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/night_mode"
+                android:layout_margin="@dimen/layout_margin"
+                android:background="@drawable/custom_rect"
+                android:elevation="5dp"
+                android:padding="@dimen/layout_settings_padding">
+
+                <TextView
+                    android:id="@+id/keyboard_help1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:background="?attr/cardBackground"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/gallery_view_padding"
+                    android:text="Auto"
+                    android:textColor="?attr/textColor"
+                    android:textSize="@dimen/brightness_text"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/night_mode"
+                android:layout_margin="@dimen/layout_margin"
+                android:background="@drawable/custom_rect"
+                android:elevation="5dp"
+                android:padding="@dimen/layout_settings_padding">
+
+                <TextView
+                    android:id="@+id/keyboard_help2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:background="?attr/cardBackground"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/gallery_view_padding"
+                    android:text="Auto"
+                    android:textColor="?attr/textColor"
+                    android:textSize="@dimen/brightness_text"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/night_mode"
+                android:layout_margin="@dimen/layout_margin"
+                android:background="@drawable/custom_rect"
+                android:elevation="5dp"
+                android:padding="@dimen/layout_settings_padding">
+
+                <TextView
+                    android:id="@+id/keyboard_help3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:background="?attr/cardBackground"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/gallery_view_padding"
+                    android:text="Auto"
+                    android:textColor="?attr/textColor"
+                    android:textSize="@dimen/brightness_text"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -200,6 +200,41 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/frame_help"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mainLayoutHeight"
+                android:layout_marginBottom="@dimen/mainLayoutMargin"
+                android:background="@drawable/custom_rect"
+                android:clickable="true"
+                android:elevation="8dp"
+                android:focusable="true"
+                android:onClick="goToHelp"
+                android:orientation="horizontal"
+                android:padding="1dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/imageView_help"
+                    android:layout_width="@dimen/mainImageWidth"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:padding="1dp"
+                    app:srcCompat="@drawable/help" />
+
+                <TextView
+                    android:id="@+id/textView_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/imageView_help"
+                    android:background="@color/colorPrimaryViv"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:padding="1dp"
+                    android:text="@string/help"
+                    android:textSize="@dimen/mainTextSize"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>

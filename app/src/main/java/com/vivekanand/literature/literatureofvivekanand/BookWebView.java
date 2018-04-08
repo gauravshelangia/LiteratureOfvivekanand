@@ -39,7 +39,8 @@ public class BookWebView extends AppCompatActivity {
     final CountDownTimer toastCountDown = new CountDownTimer(25000, 5000) {
         public void onTick(long millisUntilFinished) {
             if (BookWebView.this.thisClass.hasWindowFocus()) {
-                continueToast.show();
+                //TODO uncomment this to show
+//                continueToast.show();
                 return;
             }
             continueToast.cancel();
