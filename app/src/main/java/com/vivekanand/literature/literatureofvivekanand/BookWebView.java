@@ -128,6 +128,7 @@ public class BookWebView extends AppCompatActivity {
                 }
             }
         });
+
         focusSearchTexts();
 
     }

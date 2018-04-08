@@ -84,7 +84,7 @@ public class BengaliActivity extends AppCompatActivity implements SearchManager.
             "file:///android_asset/12_Bengali.htm",
             "file:///android_asset/13_Bengali.htm",
             "file:///android_asset/14_Bengali.htm",
-            "file:///android_asset/15_Bengali.htm",
+            "file:///android_asset/15_Bengali.html",
             "file:///android_asset/16_Bengali.htm",
             "file:///android_asset/17_Bengali.htm",
             "file:///android_asset/18_Bengali.htm",
